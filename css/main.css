@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.textoNaranja{
+    color: #f1b317f1 !important;
+}
+
+
+body{
+    background-color: #050505f7 !important
+}
+
+.divPortada{
+    width: 100%;
+    height: 200px;
+}
+
+.fondoCarrito {
+    background-color: #f1b317f1
+}
+
+.navbar .navbar-nav .nav-link {
+    color: white;
+    font-size: 1.2em;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: white !important;
+}
+
+@media only screen and (min-width: 992px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar .navbar-nav {
+        border-bottom: 2px solid #f1b317f1;
+    }
+
+    .navbar .nav-item {
+        padding: 0.5em 1em 0em;
+    }
+}
+
+.navbar .navbar-nav {
+    margin-top: 1.5em;
+    border-top: 2px solid #f1b317f1;
+}
+
+.logoImg {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.navbarWidth{
+    width: 100%;
+}
+
+.botonCarrito{
+    margin-left: 1600px;
+}
+
+input[type=number] {
+    width: 70px;
+}
+
+.botonEliminar{
+    border: none;
+}
+
+/*css footer*/
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap');
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+
+ul>li {
+    padding: 4px;
+    color:#C5CAE9;
+}
+
+ul>li:hover {
+    color: #957bda;
+    cursor: pointer
+}
+
+hr {
+    border-width: 3px
+}
+
+.cardFooter {
+    padding: 2% 3%;
+    background-color: #676664f1;
+    width: 100.7%;
+}
+
+.heading {
+    font-family: 'Titillium Web', sans-serif;
+    color: black
+}
+
+.divider {
+    border-top: 2px solid #f1b317f1
+}
