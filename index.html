@@ -24,78 +24,82 @@
 
 <body>
     <header>
-        <!--NAVBAR BS-->
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#"><img src="./assets/img/barruka_logo.png" class="logoImg"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbarToggler13"
-                aria-controls="myNavbarToggler13" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse navbarWidth" id="myNavbarToggler13">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <p class="textoNaranja">Inicio</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <p class="textoNaranja">Productos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <p class="textoNaranja">Tienda</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <p class="textoNaranja">Sobre nosotros</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <p class="textoNaranja">Donde encontrarnos</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <div class="container-fluid nav">
+            <div class="row d-flex">
+                <div class="col-lg-3">
+                    <img src="./assets/img/borde_izq.png" alt="" id="imgIzquierda">
+                </div>
+                <div class="col-lg-6">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="#"><img src="./assets/img/barruka_logo.png" class="logoImg mt-2"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#myNavbarToggler13" aria-controls="myNavbarToggler13" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse navbarWidth" id="myNavbarToggler13">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <p class="textoNaranja">Inicio</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <p class="textoNaranja">Productos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">
+                                        <p class="textoNaranja">Tienda</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <p class="textoNaranja">Sobre nosotros</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <p class="textoNaranja">Donde encontrarnos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <img src="./assets/img/borde_der.png" alt="" id="imgDerecha">
+                </div>
     </header>
-
-
     <main>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header fondoNaranja">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Carrito</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="contenedor_carrito">
+                    <div class="modal-body fondoGris"id="contenedor_carrito">
                     </div>
-                    <div class="card mb-5">
-                        <div class="card-body p-4">
-                            <div class="float-end">
-                                <p class="mb-0 me-5 d-flex align-items-center">
-                                    <span class="small text-muted me-2">Subtotal:</span><span
-                                        class="lead fw-normal me-4"></span><span class="small text-muted me-2">IVA:
+                    <div class="d-flex flex-column justify-content-end align-items-end" style="background-color: rgb(62, 61, 61);">
+                        <div class="d-flex px-3 pr-md-5 mb-3 py-1 subtotal">
+                            <span class="medium text-muted me-2">Subtotal:</span><span
+                                        class="lead fw-normal me-4"></span><span class="medium text-muted me-2">IVA:
                                     </span><span class="lead fw-normal me-4"></span><span
-                                        class="small text-muted me-2">Total:</span> <span class="lead fw-normal"></span>
-                                </p>
-                            </div>
+                                        class="medium text-muted me-2">Total:</span>$1000 <span class="lead fw-normal"></span>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer fondoNaranja" >
                         <button type="button" id="vaciarCarrito" class="btn btn-danger">Limpiar</button>
-                        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Seguir comprando</button>
-                        <button type="button" id="finalizarCompra" class="btn btn-warning">Finalizar compra</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Seguir comprando</button>
+                        <button type="button" id="finalizarCompra" class="btn btn-light">Finalizar compra</button>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="divPortada d-flex justify-content-center align-items-center">
             <img src="./assets/img/banner_barruka.png" class="img-fluid" alt="logobarruka">
         </div>
@@ -137,30 +141,33 @@
                             productos y
                             siéntete bien por dentro y por fuera con Barruka.</p>
                     </div>
+                    <div>
+                        <img src="./assets/img/logoFooter.png" class="logoFooter" alt="Logo Barruka">
+                    </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
                 <div class="col-md-2 col-sm-2 col-xs-2">
-                    <h4 class="heading font-weight-bold">Medios de pago</h3>
-                        <ul>
-                            <li>
-                                <p class="textoNaranja">Visa</p>
-                            </li>
-                            <li>
-                                <p class="textoNaranja">Mastercard</p>
-                            </li>
-                            <li>
-                                <p class="textoNaranja">Débito</p>
-                            </li>
-                            <li>
-                                <p class="textoNaranja">Transferencia</p>
-                            </li>
-                            <li>
-                                <p class="textoNaranja">Mercado pago</p>
-                            </li>
-                            <li>
-                                <p class="textoNaranja">Billeteras digitales</p>
-                            </li>
-                        </ul>
+                    <h4 class="heading font-weight-bold">Medios de pago</h4>
+                    <ul>
+                        <li>
+                            <p class="textoNaranja">Visa</p>
+                        </li>
+                        <li>
+                            <p class="textoNaranja">Mastercard</p>
+                        </li>
+                        <li>
+                            <p class="textoNaranja">Débito</p>
+                        </li>
+                        <li>
+                            <p class="textoNaranja">Transferencia</p>
+                        </li>
+                        <li>
+                            <p class="textoNaranja">Mercado pago</p>
+                        </li>
+                        <li>
+                            <p class="textoNaranja">Billeteras digitales</p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
                 <div class="col-md-2 col-sm-2 col-xs-2">
@@ -181,7 +188,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="divider mb-4"> </div>
+            <div class="divider mb-3"> </div>
             <h6 class="text-center">Copyright © 2023 Barruka. Todos los derechos reservados. Desarrollo Guillermo
                 Velasco</h6>
         </div>
