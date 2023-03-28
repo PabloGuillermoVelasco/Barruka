@@ -92,7 +92,7 @@ hr {
 }
 
 .cardFooter {
-    padding: 2% 3%;
+    padding: 1% 2%;
     background-color: #676664f1;
     width: 100.7%;
 }
@@ -126,5 +126,9 @@ hr {
 .logoFooter{
     width: 250px;
     height: 90px;
+}
+
+.toastifyColor{
+    color: black;
 }
 

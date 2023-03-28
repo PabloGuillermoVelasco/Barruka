@@ -149,6 +149,18 @@ controladorProductos.inventarioProductos.forEach(producto => {
         controladorCarrito.levantarCarrito()
 
         controladorCarrito.mostrarEnDom(contenedor_carrito)
+
+        Toastify({
+            text: "Agregado al carrito",
+            duration: 2000,
+            gravity: 'bottom', 
+            position: 'right',
+            style: {
+            background: '#f1b317f1',
+            color: 'black',
+            fontWeight:'bold'
+            },
+        }).showToast();
     })
 
 });
@@ -167,7 +179,7 @@ finalizarCompra.addEventListener("click", () =>{
             title: 'Muchas gracias por su compra!',
             text: "En breve será redirigido a la plataforma de pagos",
             showConfirmButton: false,
-            timer: 2200
+            timer: 3000
     })
     }else{
         Swal.fire({
@@ -175,7 +187,7 @@ finalizarCompra.addEventListener("click", () =>{
             icon: 'warning',
             title: 'Su carrito esta vacío!',
             showConfirmButton: false,
-            timer: 2200
+            timer: 3000
     })
 }
 })
