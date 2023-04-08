@@ -73,17 +73,14 @@ input[type=number] {
 
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0
 }
 
 ul>li {
-    padding: 4px;
-    color:#C5CAE9;
+    padding: 3px;
 }
 
 ul>li:hover {
-    color: #957bda;
+    color: white;
     cursor: pointer
 }
 
@@ -108,6 +105,11 @@ hr {
 
 .botonAgregarCarrito{
     font-weight: bold !important;
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 4%;
+    margin-top: 4%;
 }
 
 .subtotal{
@@ -131,4 +133,5 @@ hr {
 .toastifyColor{
     color: black;
 }
+
 

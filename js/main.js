@@ -21,7 +21,9 @@ class ControladorProductos {
                             <h5 class="card-title">${producto.nombre} ${producto.sabor} ${producto.presentacion}</h5>
                             <p class="card-text">${producto.descripcion}</p>
                             <p class = text-center><strong>$${producto.precio}</strong></p>
-                            <a href="#" class="btn btn-warning d-flex justify-content-center botonAgregarCarrito" id= "producto${producto.id}">Agregar al carrito</a>
+                            <div class="d-flex">
+                            <button class="btn btn-warning mx-auto botonAgregarCarrito" id= "producto${producto.id}">Agregar al carrito</button>
+                        </div>
                         </div>
                     </div>
             `
@@ -114,7 +116,24 @@ class ControladorCarrito {
             this.mostrarEnDom(contenedor_carrito);
         });
     }
-    
+    //ACA ESTA TODO PARA EL CALCULO DE LOS TOTALES
+    mostrarPrecioEnDom(subtotal, iva, total){
+        subtotal.innerHTML = "Subtotal: $" + this.calcularSubtotal()
+        iva.innerHTML = "IVA: $" + this.calcularIva ()
+        total.innerHTML = "Total: $" + this.calcularTotal()
+    }
+
+    calcularSubtotal(){
+        return this.listaCarrito.reduce((acumulador, producto) => acumulador + producto.precio * producto.cantidad ,0)
+    }
+
+    calcularIva(){
+        return this.calcularSubtotal()*0.21
+    }
+
+    calcularTotal(){
+        return this.calcularSubtotal() + this.calcularIva()
+    }
 
     }
 
@@ -133,6 +152,9 @@ controladorCarrito.levantarCarrito()
 const contenedor_productos = document.getElementById("contenedor_productos")
 const contenedor_carrito = document.getElementById("contenedor_carrito")
 const finalizarCompra = document.getElementById("finalizarCompra")
+const subtotal = document.getElementById("subtotal")
+const iva = document.getElementById("iva")
+const total = document.getElementById("total")
 
 
 //APP JS
@@ -150,16 +172,19 @@ controladorProductos.inventarioProductos.forEach(producto => {
 
         controladorCarrito.mostrarEnDom(contenedor_carrito)
 
+        controladorCarrito.mostrarPrecioEnDom(subtotal, iva, total)
+
         Toastify({
-            text: "Agregado al carrito",
+            text: "Agregado",
             duration: 2000,
             gravity: 'bottom', 
             position: 'right',
             style: {
-            background: '#f1b317f1',
+                
+            background: "linear-gradient(to right, #f1ee13, #f1b317)",
             color: 'black',
-            fontWeight:'bold'
-            },
+            fontWeight: 'bold'
+            }
         }).showToast();
     })
 
@@ -191,3 +216,4 @@ finalizarCompra.addEventListener("click", () =>{
     })
 }
 })
+
