@@ -116,8 +116,9 @@ class ControladorCarrito {
             this.mostrarEnDom(contenedor_carrito);
         });
     }
+    
     //ACA ESTA TODO PARA EL CALCULO DE LOS TOTALES
-    mostrarPrecioEnDom(subtotal, iva, total){
+    mostrarPreciosEnDom(subtotal, iva, total){
         subtotal.innerHTML = "Subtotal: $" + this.calcularSubtotal()
         iva.innerHTML = "IVA: $" + this.calcularIva ()
         total.innerHTML = "Total: $" + this.calcularTotal()
@@ -162,6 +163,8 @@ const total = document.getElementById("total")
 controladorProductos.mostrarEnDom(contenedor_productos)
 controladorCarrito.mostrarEnDom(contenedor_carrito)
 
+//EVENTOS
+
 controladorProductos.inventarioProductos.forEach(producto => {
     const producto_en_espera = document.getElementById(`producto${producto.id}`)
 
@@ -172,7 +175,7 @@ controladorProductos.inventarioProductos.forEach(producto => {
 
         controladorCarrito.mostrarEnDom(contenedor_carrito)
 
-        controladorCarrito.mostrarPrecioEnDom(subtotal, iva, total)
+        controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
 
         Toastify({
             text: "Agregado",

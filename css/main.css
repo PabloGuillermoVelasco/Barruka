@@ -2,18 +2,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-.textoNaranja{
+.textoNaranja {
     color: #f1b317f1 !important;
 }
 
 
-body{
+body {
     background-color: #050505f7 !important
 }
 
-.divPortada{
+.divPortada {
     width: 100%;
     height: 200px;
 }
@@ -52,20 +53,29 @@ body{
     border-radius: 10px;
 }
 
-.navbarWidth{
+.navbarWidth {
     width: 100%;
 }
 
-.botonCarrito{
-    margin-left: 1600px;
+#botonCarrito {
+    right: 100px;
     position: fixed;
+}
+
+@media (max-width: 1200px) {
+    #carrito {
+        display: block;
+        position: fixed;
+        right: 100px;
+        
+    }
 }
 
 input[type=number] {
     width: 70px;
 }
 
-.botonEliminar{
+.botonEliminar {
     border: none;
 }
 
@@ -103,7 +113,7 @@ hr {
     border-top: 2px solid #f1b317f1
 }
 
-.botonAgregarCarrito{
+.botonAgregarCarrito {
     font-weight: bold !important;
     width: 90%;
     position: absolute;
@@ -112,26 +122,36 @@ hr {
     margin-top: 4%;
 }
 
-.subtotal{
+.subtotal {
     border-bottom-left-radius: 50px;
     background-color: #ccc;
 }
 
-.fondoNaranja{
-    background-color:#f1b317f1 !important;
+.fondoNaranja {
+    background-color: #f1b317f1 !important;
 }
 
-.fondoGris{
+.fondoGris {
     background-color: rgb(62, 61, 61);
 }
 
-.logoFooter{
+.logoFooter {
     width: 250px;
     height: 90px;
 }
 
-.toastifyColor{
+.toastifyColor {
     color: black;
 }
 
+.card-body{
+    height: 220px;
+}
 
+.card-title{
+    overflow-y: hidden;
+}
+
+.nosotros{
+    overflow-y: hidden;
+}
