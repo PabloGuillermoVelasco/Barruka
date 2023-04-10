@@ -47,9 +47,18 @@ class ControladorCarrito {
 
         if (obtenerListaJSON) {
             this.listaCarrito = JSON.parse(obtenerListaJSON)
+            return true
         }
+        return false
     }
     anadirCarrito(producto) {
+        let existenciaProducto = this.listaCarrito.some(elemento => elemento.id == producto.id)
+
+        if (existenciaProducto){
+            const productoEncontrado = this.buscar(producto.id)
+            productoEncontrado.cantidad += 1
+        }
+
         this.listaCarrito.push(producto)
         let arrEnFormatoJSON = JSON.stringify(this.listaCarrito)
         localStorage.setItem("listaCarrito", arrEnFormatoJSON)
@@ -82,7 +91,7 @@ class ControladorCarrito {
                                                     <i class="fas fa-minus"></i>
                                                 </button>
                                                 <input id="form1" min="1" name="quantity" value="1" type="number"
-                                                    class="form-control form-control-sm text-center" />
+                                                    class="form-control form-control-sm text-center"/>
                                                 <button id="plus" class="btn btn-link px-2"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                     <i class="fas fa-plus"></i>
@@ -107,6 +116,7 @@ class ControladorCarrito {
                 this.borrar(producto)
                 localStorage.setItem("listaCarrito", JSON.stringify(this.listaCarrito))
                 this.mostrarEnDom(contenedor_carrito)
+                this.mostrarPreciosEnDom(subtotal, iva, total)
             })
         })
 
@@ -114,6 +124,7 @@ class ControladorCarrito {
         vaciarCarrito.addEventListener('click', () => {
             this.vaciarCarrito();
             this.mostrarEnDom(contenedor_carrito);
+            this.mostrarPreciosEnDom(subtotal, iva, total)
         });
     }
     
@@ -136,9 +147,11 @@ class ControladorCarrito {
         return this.calcularSubtotal() + this.calcularIva()
     }
 
+    buscar(id){
+        return this.listaCarrito.find(producto => producto.id == id)
     }
 
-
+    }
 
 
 //OBJETOS CONTROLADORES
@@ -147,7 +160,7 @@ const controladorCarrito = new ControladorCarrito()
 
 //VERIFICA STORAGE
 controladorProductos.levantarProductos()
-controladorCarrito.levantarCarrito()
+const levantoLista = controladorCarrito.levantarCarrito()
 
 //DOM
 const contenedor_productos = document.getElementById("contenedor_productos")
@@ -157,6 +170,9 @@ const subtotal = document.getElementById("subtotal")
 const iva = document.getElementById("iva")
 const total = document.getElementById("total")
 
+if (levantoLista){
+    controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
+}
 
 //APP JS
 
@@ -193,13 +209,13 @@ controladorProductos.inventarioProductos.forEach(producto => {
 
 });
 
-//SWEETALERT
 finalizarCompra.addEventListener("click", () =>{
 
     if(controladorCarrito.listaCarrito.length > 0){
 
         controladorCarrito.vaciarCarrito()
         controladorCarrito.mostrarEnDom(contenedor_carrito)
+        controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
 
         Swal.fire({
             position: 'center',
@@ -219,4 +235,3 @@ finalizarCompra.addEventListener("click", () =>{
     })
 }
 })
-
