@@ -52,14 +52,15 @@ class ControladorCarrito {
         return false
     }
     anadirCarrito(producto) {
-        let existenciaProducto = this.listaCarrito.some(elemento => elemento.id == producto.id)
+        let existe = this.listaCarrito.some(elemento => elemento.id == producto.id)
 
-        if (existenciaProducto){
+        if (existe){
             const productoEncontrado = this.buscar(producto.id)
             productoEncontrado.cantidad += 1
+        }else{
+            this.listaCarrito.push(producto)
         }
 
-        this.listaCarrito.push(producto)
         let arrEnFormatoJSON = JSON.stringify(this.listaCarrito)
         localStorage.setItem("listaCarrito", arrEnFormatoJSON)
     }
@@ -68,7 +69,7 @@ class ControladorCarrito {
         this.listaCarrito = []
         localStorage.removeItem("listaCarrito")
     }
-
+//MOSTRAR EN DOM, BORRAR Y VACIAR CARRITO
     mostrarEnDom(contenedor_carrito) {
         contenedor_carrito.innerHTML = ""
         this.listaCarrito.forEach(producto => {
@@ -91,14 +92,14 @@ class ControladorCarrito {
                                                     <i class="fas fa-minus"></i>
                                                 </button>
                                                 <input id="form1" min="1" name="quantity" value="1" type="number"
-                                                    class="form-control form-control-sm text-center"/>
+                                                    class="form-control form-control-sm text-center" onchange="actualizarPrecio()"/>
                                                 <button id="plus" class="btn btn-link px-2"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0">$${producto.precio}</h5>
+                                                <h5 class="mb-0" id="precioProducto">$${producto.precio}</h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                 <button id="borrar${producto.id}" class="botonEliminar"><i class="fa-solid fa-trash-can"></i></i></button>
@@ -126,6 +127,12 @@ class ControladorCarrito {
             this.mostrarEnDom(contenedor_carrito);
             this.mostrarPreciosEnDom(subtotal, iva, total)
         });
+        
+    }
+    
+
+    buscar(id){
+        return this.listaCarrito.find(producto => producto.id == id)
     }
     
     //ACA ESTA TODO PARA EL CALCULO DE LOS TOTALES
@@ -147,11 +154,7 @@ class ControladorCarrito {
         return this.calcularSubtotal() + this.calcularIva()
     }
 
-    buscar(id){
-        return this.listaCarrito.find(producto => producto.id == id)
-    }
-
-    }
+}
 
 
 //OBJETOS CONTROLADORES
@@ -170,6 +173,8 @@ const subtotal = document.getElementById("subtotal")
 const iva = document.getElementById("iva")
 const total = document.getElementById("total")
 
+
+
 if (levantoLista){
     controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
 }
@@ -178,6 +183,7 @@ if (levantoLista){
 
 controladorProductos.mostrarEnDom(contenedor_productos)
 controladorCarrito.mostrarEnDom(contenedor_carrito)
+
 
 //EVENTOS
 
