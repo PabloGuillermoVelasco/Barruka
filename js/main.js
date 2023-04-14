@@ -1,17 +1,17 @@
 class ControladorProductos {
     constructor() {
         this.inventarioProductos = []
+        this.contenedor_productos = document.getElementById("contenedor_productos")
     }
 
-    levantarProductos() {
-        let obtenerListaJSON = localStorage.getItem("inventarioProductos")
-
-        if (obtenerListaJSON) {
-            this.inventarioProductos = JSON.parse(obtenerListaJSON)
-        }
+    async levantarJSON () {
+        let respuesta = await fetch ("./js/apiLocal.json")
+        this.inventarioProductos = await respuesta.json()
+        this.mostrarEnDom()
+        this.eventoAnadirCarrito(controladorCarrito)
     }
 
-    mostrarEnDom(contenedor_productos) {
+    mostrarEnDom() {
         contenedor_productos.innerHTML = ""
         this.inventarioProductos.forEach(producto => {
             contenedor_productos.innerHTML += `
@@ -215,11 +215,13 @@ const controladorProductos = new ControladorProductos()
 const controladorCarrito = new ControladorCarrito()
 
 //VERIFICA STORAGE
-controladorProductos.levantarProductos()
 const levantoLista = controladorCarrito.levantarCarrito()
 
+//LEVANTO JSON
+controladorProductos.levantarJSON (controladorCarrito)
+
+
 //DOM
-const contenedor_productos = document.getElementById("contenedor_productos")
 const finalizarCompra = document.getElementById("finalizarCompra")
 
 //APP JS
