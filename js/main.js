@@ -30,11 +30,48 @@ class ControladorProductos {
         });
     }
 
+    eventoAnadirCarrito(controladorCarrito){
+        this.inventarioProductos.forEach(producto => {
+            const producto_en_espera = document.getElementById(`producto${producto.id}`)
+        
+            producto_en_espera.addEventListener("click", () => {
+                
+                controladorCarrito.anadirCarrito(producto)
+        
+                controladorCarrito.levantarCarrito()
+        
+                controladorCarrito.limpiarDom()
+        
+                controladorCarrito.mostrarEnDom()
+        
+                Toastify({
+                    text: "Agregado",
+                    duration: 2000,
+                    gravity: 'bottom', 
+                    position: 'right',
+                    style: {
+                        
+                    background: "linear-gradient(to right, #f1ee13, #f1b317)",
+                    color: 'black',
+                    fontWeight: 'bold'
+                    }
+                }).showToast();
+            })
+        
+        });
+        
+    }
 }
 
 class ControladorCarrito {
     constructor() {
         this.listaCarrito = []
+        this.contenedor_carrito = document.getElementById("contenedor_carrito")
+        this.subtotal = document.getElementById("subtotal")
+        this.iva = document.getElementById("iva")
+        this.total = document.getElementById("total")
+        
+
     }
 
     borrar(producto){
@@ -51,6 +88,7 @@ class ControladorCarrito {
         }
         return false
     }
+
     anadirCarrito(producto) {
         let existe = this.listaCarrito.some(elemento => elemento.id == producto.id)
 
@@ -69,11 +107,9 @@ class ControladorCarrito {
         this.listaCarrito = []
         localStorage.removeItem("listaCarrito")
     }
-//MOSTRAR EN DOM, BORRAR Y VACIAR CARRITO
-    mostrarEnDom(contenedor_carrito) {
-        contenedor_carrito.innerHTML = ""
-        this.listaCarrito.forEach(producto => {
-            contenedor_carrito.innerHTML += `
+
+    cardProductos(producto){
+        return `
             <section class="h-100 fondoCarrito">
                             <div class="container h-100 py-2 ">
                                 <div class="card rounded-3 mb-1" >
@@ -110,36 +146,54 @@ class ControladorCarrito {
                             </div>
                 </section>
                         `
-        })
+    }
 
+    limpiarDom(){
+        this.contenedor_carrito.innerHTML = ""
+    }
+
+    eventoBorrar(){
         this.listaCarrito.forEach(producto =>{
             document.getElementById(`borrar${producto.id}`).addEventListener("click", () => {
                 this.borrar(producto)
                 localStorage.setItem("listaCarrito", JSON.stringify(this.listaCarrito))
-                this.mostrarEnDom(contenedor_carrito)
-                this.mostrarPreciosEnDom(subtotal, iva, total)
+                this.mostrarEnDom()
+                this.mostrarPreciosEnDom()
             })
         })
+    }
 
+    eventoVaciarCarrito(){
         const vaciarCarrito = document.getElementById('vaciarCarrito');
         vaciarCarrito.addEventListener('click', () => {
             this.vaciarCarrito();
-            this.mostrarEnDom(contenedor_carrito);
-            this.mostrarPreciosEnDom(subtotal, iva, total)
+            this.mostrarEnDom();
         });
+    }
+
+    mostrarEnDom() {
+        this.limpiarDom()
+        this.listaCarrito.forEach(producto => {
+            this.contenedor_carrito.innerHTML += this.cardProductos(producto)
+        })
+
+        this.eventoBorrar()
+
+        this.eventoVaciarCarrito()
+
+        this.mostrarPreciosEnDom()
         
     }
     
-
     buscar(id){
         return this.listaCarrito.find(producto => producto.id == id)
     }
     
     //ACA ESTA TODO PARA EL CALCULO DE LOS TOTALES
-    mostrarPreciosEnDom(subtotal, iva, total){
-        subtotal.innerHTML = "Subtotal: $" + this.calcularSubtotal()
-        iva.innerHTML = "IVA: $" + this.calcularIva ()
-        total.innerHTML = "Total: $" + this.calcularTotal()
+    mostrarPreciosEnDom(){
+        this.subtotal.innerHTML = "Subtotal: $" + this.calcularSubtotal()
+        this.iva.innerHTML = "IVA: $" + this.calcularIva ()
+        this.total.innerHTML = "Total: $" + this.calcularTotal()
     }
 
     calcularSubtotal(){
@@ -156,7 +210,6 @@ class ControladorCarrito {
 
 }
 
-
 //OBJETOS CONTROLADORES
 const controladorProductos = new ControladorProductos()
 const controladorCarrito = new ControladorCarrito()
@@ -167,61 +220,20 @@ const levantoLista = controladorCarrito.levantarCarrito()
 
 //DOM
 const contenedor_productos = document.getElementById("contenedor_productos")
-const contenedor_carrito = document.getElementById("contenedor_carrito")
 const finalizarCompra = document.getElementById("finalizarCompra")
-const subtotal = document.getElementById("subtotal")
-const iva = document.getElementById("iva")
-const total = document.getElementById("total")
-
-
-
-if (levantoLista){
-    controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
-}
 
 //APP JS
 
 controladorProductos.mostrarEnDom(contenedor_productos)
-controladorCarrito.mostrarEnDom(contenedor_carrito)
-
-
-//EVENTOS
-
-controladorProductos.inventarioProductos.forEach(producto => {
-    const producto_en_espera = document.getElementById(`producto${producto.id}`)
-
-    producto_en_espera.addEventListener("click", () => {
-        controladorCarrito.anadirCarrito(producto)
-
-        controladorCarrito.levantarCarrito()
-
-        controladorCarrito.mostrarEnDom(contenedor_carrito)
-
-        controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
-
-        Toastify({
-            text: "Agregado",
-            duration: 2000,
-            gravity: 'bottom', 
-            position: 'right',
-            style: {
-                
-            background: "linear-gradient(to right, #f1ee13, #f1b317)",
-            color: 'black',
-            fontWeight: 'bold'
-            }
-        }).showToast();
-    })
-
-});
-
+controladorCarrito.mostrarEnDom()
+controladorProductos.eventoAnadirCarrito(controladorCarrito)
 finalizarCompra.addEventListener("click", () =>{
 
     if(controladorCarrito.listaCarrito.length > 0){
 
         controladorCarrito.vaciarCarrito()
-        controladorCarrito.mostrarEnDom(contenedor_carrito)
-        controladorCarrito.mostrarPreciosEnDom(subtotal, iva, total)
+        controladorCarrito.mostrarEnDom()
+        controladorCarrito.mostrarPreciosEnDom()
 
         Swal.fire({
             position: 'center',
