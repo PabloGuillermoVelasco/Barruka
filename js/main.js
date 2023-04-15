@@ -127,15 +127,15 @@ class ControladorCarrito {
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
-                                                <input id="form1" min="1" name="quantity" value="1" type="number"
-                                                    class="form-control form-control-sm text-center" onchange="actualizarPrecio()"/>
+                                                <input id="cantidadItem${producto.id}" inputmode="numeric" min="1" name="quantity" value="1" type="number"
+                                                    class="form-control form-control-sm text-center"/>
                                                 <button id="plus" class="btn btn-link px-2"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0" id="precioProducto">$${producto.precio}</h5>
+                                                <h5 class="mb-0" id="precioProductoIndividual">$</h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                 <button id="borrar${producto.id}" class="botonEliminar"><i class="fa-solid fa-trash-can"></i></i></button>
@@ -146,6 +146,15 @@ class ControladorCarrito {
                             </div>
                 </section>
                         `
+    }
+
+    actualizarPrecios(){
+        const cantidadItems = document.getElementById('cantidadItem${producto.id}').value;
+        const precio = document.getElementById ('${producto.precio}')
+        cantidadItems.addEventListener('change', () => {
+            document.getElementById('precioProductoIndividual').innerHTML = cantidadItems*precio
+        })
+
     }
 
     limpiarDom(){
@@ -182,6 +191,9 @@ class ControladorCarrito {
         this.eventoVaciarCarrito()
 
         this.mostrarPreciosEnDom()
+
+        this.actualizarPrecios()
+
         
     }
     
@@ -224,7 +236,7 @@ controladorProductos.levantarJSON (controladorCarrito)
 //DOM
 const finalizarCompra = document.getElementById("finalizarCompra")
 
-//APP JS
+//CODIGO
 
 controladorProductos.mostrarEnDom(contenedor_productos)
 controladorCarrito.mostrarEnDom()
@@ -251,7 +263,7 @@ finalizarCompra.addEventListener("click", () =>{
             icon: 'warning',
             title: 'Su carrito esta vacío!',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2700
     })
 }
 })
