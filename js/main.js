@@ -147,15 +147,15 @@ class ControladorCarrito {
                 </section>
                         `
     }
-
-    actualizarPrecios(){
+//METODO ACTUALIZAR PRECIO*CANTIDAD
+    /*actualizarPrecios(){
         const cantidadItems = document.getElementById('cantidadItem${producto.id}').value;
         const precio = document.getElementById ('${producto.precio}')
         cantidadItems.addEventListener('change', () => {
             document.getElementById('precioProductoIndividual').innerHTML = cantidadItems*precio
         })
 
-    }
+    }*/
 
     limpiarDom(){
         this.contenedor_carrito.innerHTML = ""
@@ -192,8 +192,7 @@ class ControladorCarrito {
 
         this.mostrarPreciosEnDom()
 
-        this.actualizarPrecios()
-
+        //this.actualizarPrecios()
         
     }
     
