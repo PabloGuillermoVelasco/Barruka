@@ -68,8 +68,6 @@ class ControladorProductos {
     }
 }
 
-    let contador = 0
-
 class ControladorCarrito {
     constructor() {
         this.listaCarrito = []
@@ -77,7 +75,7 @@ class ControladorCarrito {
         this.subtotal = document.getElementById("subtotal")
         this.iva = document.getElementById("iva")
         this.total = document.getElementById("total")
-
+        this.contador = 0;
     }
 
     borrar(producto){
@@ -116,47 +114,48 @@ class ControladorCarrito {
 
     sumarUno(){
         const sumarUno = document.querySelectorAll(".sumar-uno")
-
-        console.log ("Este es el sumaUno",sumarUno)
-
         sumarUno.forEach ((btn) => {
             btn.addEventListener("click", (e) => {
-
-                console.log("este es el target id",e.target.id)
-
                 const indice = this.listaCarrito.findIndex(p => p.id === parseInt(e.target.id))
-
-                console.log("este es el indice",indice)
-
                 this.listaCarrito[indice].cantidad++
                 this.mostrarEnDom() 
             })
         })
     }
 
-    /*restarUno(){
-
-        document.getElementById("minus").addEventListener("click", () => {
-            cantidad = contador -1;
-            document.getElementById("contador").innerHTML = contador
+    restarUno(){
+        const restarUno = document.querySelectorAll(".restar-uno")
+        restarUno.forEach ((btn) => {
+            btn.addEventListener("click", (e) => {
+                const indice = this.listaCarrito.findIndex(p => p.id === parseInt(e.target.id))
+                if (this.listaCarrito[indice].cantidad>1){
+                    this.listaCarrito[indice].cantidad--
+                    this.mostrarEnDom() 
+                }
+            })
         })
-    }*/
+    }
 
 
-/*<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button id= "minus" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input id="cantidadItem${producto.id}" inputmode="numeric" min="1" name="quantity" value="1" type="number"
-                                                    class="form-control form-control-sm text-center"/>
-                                                <button id="plus" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').sumarUno()">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
+/*                                          <div class= "d-flex">
+                                                <span>
+                                                    <button id="${producto.id}" class="restar-uno btn px-2">
+                                                    -
+                                                    </button>
+                                                </span>
+                                                <span id=contador>
+                                                    ${producto.cantidad}
+                                                </span>
+                                                <span>
+                                                    <button id="${producto.id}" class="sumar-uno btn px-2">
+                                                    +
+                                                    </button>
+                                                </span>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0" id="precioProductoIndividual"></h5>
+                                                <h5 class="mb-0">
+                                                ${producto.cantidad * producto.precio}
+                                                </h5>
                                             </div>*/
 
     cardProductos(producto){
@@ -175,28 +174,22 @@ class ControladorCarrito {
                                                 ${producto.presentacion}
                                                 </p>
                                             </div>
-                                            <div class= "d-flex">
-                                                <span>
-                                                    <button id="" class=" btn btn-link px-2">
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <button id="${producto.id}" class="btn restar-uno btnSumaYResta">
                                                     <i class="fas fa-minus"></i>
-                                                </span>
-                                                <span id=contador>
-                                                    ${producto.cantidad}
-                                                </span>
-                                                <span>
-                                                    <button id="${producto.id}" class="sumar-uno btn btn-link px-2">
+                                                </button>
+                                                <input  inputmode="numeric" min="1" name="quantity" value="${producto.cantidad}" type="number"
+                                                    class="form-control form-control-sm text-center"/>
+                                                <button id="${producto.id}" class="btn sumar-uno btnSumaYResta">
                                                     <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </span>
+                                                </button>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0" id="precioProductoIndividual">
-                                                ${producto.cantidad * producto.precio}
-                                                </h5>
+                                                <h5 class="mb-0">$${producto.cantidad * producto.precio}</h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                 <button id="borrar${producto.id}" class="botonEliminar">
-                                                <i class="fa-solid fa-trash-can"></i></i>
+                                                <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -206,16 +199,6 @@ class ControladorCarrito {
                 </section>
                         `
     }
-//METODO ACTUALIZAR PRECIO*CANTIDAD
-    /*actualizarPrecios(producto){
-        const cantidadItems = document.getElementById(`cantidadItem${producto.id}`).value;
-        console.log(cantidadItems)
-        const precio = document.getElementById (`${producto.precio}`)
-        cantidadItems.addEventListener('change', () => {
-            document.getElementById(`precioProductoIndividual`).innerHTML = cantidadItems*precio
-        })
-
-    }*/
 
     limpiarDom(){
         this.contenedor_carrito.innerHTML = ""
@@ -248,7 +231,7 @@ class ControladorCarrito {
         })
         this.sumarUno()
 
-        //this.restarUno()
+        this.restarUno()
 
         this.eventoBorrar()
 
@@ -283,7 +266,6 @@ class ControladorCarrito {
     calcularTotal(){
         return this.calcularSubtotal() + this.calcularIva()
     }
-
 }
 
 //OBJETOS CONTROLADORES

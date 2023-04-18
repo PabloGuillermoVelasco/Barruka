@@ -128,6 +128,12 @@ hr {
     margin-top: 4%;
 }
 
+.btnSumaYResta{
+    background-color: #f1b317f1 !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .subtotal {
     border-bottom-left-radius: 50px;
     background-color: #ccc;
