@@ -118,7 +118,7 @@ class ControladorCarrito {
         const sumarUno = document.querySelectorAll(".sumar-uno")
 
         console.log ("Este es el sumaUno",sumarUno)
-        
+
         sumarUno.forEach ((btn) => {
             btn.addEventListener("click", (e) => {
 
@@ -175,24 +175,28 @@ class ControladorCarrito {
                                                 ${producto.presentacion}
                                                 </p>
                                             </div>
-                                            <span>
-                                                <button id="" class=" btn btn-link px-2"><i class="fas fa-minus"></i>
-                                            </span>
-                                            <span id=contador>
-                                                ${producto.cantidad}
-                                            </span>
-                                            <span>
-                                                <button id="${producto.id}" class="sumar-uno btn btn-link px-2"><i class="fas fa-plus"></i>
-                                            </span>
-                                                </button>
-                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <div class= "d-flex">
+                                                <span>
+                                                    <button id="" class=" btn btn-link px-2">
+                                                    <i class="fas fa-minus"></i>
+                                                </span>
+                                                <span id=contador>
+                                                    ${producto.cantidad}
+                                                </span>
+                                                <span>
+                                                    <button id="${producto.id}" class="sumar-uno btn btn-link px-2">
+                                                    <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h5 class="mb-0" id="precioProductoIndividual">
                                                 ${producto.cantidad * producto.precio}
                                                 </h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <button id="borrar${producto.id}" class="botonEliminar">
-                                                    <i class="fa-solid fa-trash-can"></i></i>
+                                                <button id="borrar${producto.id}" class="botonEliminar">
+                                                <i class="fa-solid fa-trash-can"></i></i>
                                                 </button>
                                             </div>
                                         </div>
