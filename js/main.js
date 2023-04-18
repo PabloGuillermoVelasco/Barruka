@@ -1,3 +1,10 @@
+function sumarUno(){
+    document.getElementById("plus").addEventListener("click", () => {
+        contador = contador +1
+        document.getElementById(`cantidadItem${producto.id}`).innerHTML = contador
+    })
+}
+
 class ControladorProductos {
     constructor() {
         this.inventarioProductos = []
@@ -11,22 +18,26 @@ class ControladorProductos {
         this.eventoAnadirCarrito(controladorCarrito)
     }
 
+    cardProductosIndex(producto){
+        return `
+        <div class="card" style="width: 18rem;">
+                    <img src=${producto.img} class="card-img-top img-fluid" alt=${producto.alt}>
+                    <div class="card-body card-body-index">
+                        <h5 class="card-title">${producto.nombre} ${producto.sabor} ${producto.presentacion}</h5>
+                        <p class="card-text">${producto.descripcion}</p>
+                        <p class = text-center><strong>$${producto.precio}</strong></p>
+                        <div class="d-flex">
+                        <button class="btn btn-warning mx-auto botonAgregarCarrito" id= "producto${producto.id}">Agregar al carrito</button>
+                    </div>
+                    </div>
+                </div>
+        `
+    }
+
     mostrarEnDom() {
         contenedor_productos.innerHTML = ""
         this.inventarioProductos.forEach(producto => {
-            contenedor_productos.innerHTML += `
-            <div class="card" style="width: 18rem;">
-                        <img src=${producto.img} class="card-img-top img-fluid" alt=${producto.alt}>
-                        <div class="card-body">
-                            <h5 class="card-title">${producto.nombre} ${producto.sabor} ${producto.presentacion}</h5>
-                            <p class="card-text">${producto.descripcion}</p>
-                            <p class = text-center><strong>$${producto.precio}</strong></p>
-                            <div class="d-flex">
-                            <button class="btn btn-warning mx-auto botonAgregarCarrito" id= "producto${producto.id}">Agregar al carrito</button>
-                        </div>
-                        </div>
-                    </div>
-            `
+            contenedor_productos.innerHTML += this.cardProductosIndex(producto)
         });
     }
 
@@ -63,6 +74,8 @@ class ControladorProductos {
     }
 }
 
+    let contador = 0
+
 class ControladorCarrito {
     constructor() {
         this.listaCarrito = []
@@ -70,7 +83,6 @@ class ControladorCarrito {
         this.subtotal = document.getElementById("subtotal")
         this.iva = document.getElementById("iva")
         this.total = document.getElementById("total")
-        this.cantidadItems = document.getElementById('cantidadItem${producto.id}');
 
     }
 
@@ -108,6 +120,39 @@ class ControladorCarrito {
         localStorage.removeItem("listaCarrito")
     }
 
+    sumarUno(producto){
+        const cantidad = producto.cantidad;
+        document.getElementById("plus").addEventListener("click", () => {
+            cantidad = contador +1;
+            document.getElementById("contador").innerHTML = contador
+        })
+    }
+
+    restarUno(producto){
+        const cantidad = producto.cantidad;
+        document.getElementById("minus").addEventListener("click", () => {
+            cantidad = contador -1;
+            document.getElementById("contador").innerHTML = contador
+        })
+    }
+
+
+/*<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <button id= "minus" class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <input id="cantidadItem${producto.id}" inputmode="numeric" min="1" name="quantity" value="1" type="number"
+                                                    class="form-control form-control-sm text-center"/>
+                                                <button id="plus" class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').sumarUno()">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h5 class="mb-0" id="precioProductoIndividual"></h5>
+                                            </div>*/
+
     cardProductos(producto){
         return `
             <section class="h-100 fondoCarrito">
@@ -122,20 +167,11 @@ class ControladorCarrito {
                                                 <p class="lead fw-normal mb-2">${producto.nombre} ${producto.sabor}
                                                     ${producto.presentacion}</p>
                                             </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button id= "minus" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i class="fas fa-minus"></i>
+                                            <span><button id= "minus" class="btn btn-link px-2"><i class="fas fa-minus"></i></span><span id=contador>${producto.cantidad}</span><span>
+                                            <button id="plus" class="btn btn-link px-2"><i class="fas fa-plus"></i></span>
                                                 </button>
-                                                <input id="cantidadItem${producto.id}" inputmode="numeric" min="1" name="quantity" value="1" type="number"
-                                                    class="form-control form-control-sm text-center"/>
-                                                <button id="plus" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0" id="precioProductoIndividual">$</h5>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h5 class="mb-0" id="precioProductoIndividual">${producto.cantidad * producto.precio}</h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                 <button id="borrar${producto.id}" class="botonEliminar"><i class="fa-solid fa-trash-can"></i></i></button>
@@ -148,14 +184,15 @@ class ControladorCarrito {
                         `
     }
 //METODO ACTUALIZAR PRECIO*CANTIDAD
-    actualizarPrecios(){
-        const cantidadItems = document.getElementById('cantidadItem${producto.id}').value;
-        const precio = document.getElementById ('${producto.precio}')
+    /*actualizarPrecios(producto){
+        const cantidadItems = document.getElementById(`cantidadItem${producto.id}`).value;
+        console.log(cantidadItems)
+        const precio = document.getElementById (`${producto.precio}`)
         cantidadItems.addEventListener('change', () => {
-            document.getElementById('precioProductoIndividual').innerHTML = cantidadItems*precio
+            document.getElementById(`precioProductoIndividual`).innerHTML = cantidadItems*precio
         })
 
-    }
+    }*/
 
     limpiarDom(){
         this.contenedor_carrito.innerHTML = ""
@@ -192,7 +229,10 @@ class ControladorCarrito {
 
         this.mostrarPreciosEnDom()
 
-        //this.actualizarPrecios()
+        this.sumarUno(producto)
+
+        this.restarUno(producto)
+
         
     }
     

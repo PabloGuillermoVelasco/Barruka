@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 .textoNaranja {
@@ -65,7 +64,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #botonCarrito {
-    right: 100px;
+    right: 125px;
     position: fixed;
 }
 
@@ -151,7 +150,7 @@ hr {
     color: black;
 }
 
-.card-body{
+.card-body-index{
     height: 220px;
 }
 
