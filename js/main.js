@@ -121,7 +121,8 @@ class ControladorCarrito {
     }
 
     sumarUno(producto){
-        const cantidad = producto.cantidad;
+        let cantidad = producto.cantidad;
+        console.log((producto))
         document.getElementById("plus").addEventListener("click", () => {
             cantidad = contador +1;
             document.getElementById("contador").innerHTML = contador
@@ -129,7 +130,8 @@ class ControladorCarrito {
     }
 
     restarUno(producto){
-        const cantidad = producto.cantidad;
+        let cantidad = producto.cantidad;
+        console.log (producto)
         document.getElementById("minus").addEventListener("click", () => {
             cantidad = contador -1;
             document.getElementById("contador").innerHTML = contador
@@ -220,7 +222,11 @@ class ControladorCarrito {
     mostrarEnDom() {
         this.limpiarDom()
         this.listaCarrito.forEach(producto => {
+            console.log (producto)
             this.contenedor_carrito.innerHTML += this.cardProductos(producto)
+            this.sumarUno(producto)
+
+            this.restarUno(producto)
         })
 
         this.eventoBorrar()
@@ -229,9 +235,7 @@ class ControladorCarrito {
 
         this.mostrarPreciosEnDom()
 
-        this.sumarUno(producto)
-
-        this.restarUno(producto)
+        
 
         
     }
