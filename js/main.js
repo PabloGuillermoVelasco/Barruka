@@ -70,7 +70,7 @@ class ControladorCarrito {
         this.subtotal = document.getElementById("subtotal")
         this.iva = document.getElementById("iva")
         this.total = document.getElementById("total")
-        
+        this.cantidadItems = document.getElementById('cantidadItem${producto.id}');
 
     }
 
@@ -148,14 +148,14 @@ class ControladorCarrito {
                         `
     }
 //METODO ACTUALIZAR PRECIO*CANTIDAD
-    /*actualizarPrecios(){
+    actualizarPrecios(){
         const cantidadItems = document.getElementById('cantidadItem${producto.id}').value;
         const precio = document.getElementById ('${producto.precio}')
         cantidadItems.addEventListener('change', () => {
             document.getElementById('precioProductoIndividual').innerHTML = cantidadItems*precio
         })
 
-    }*/
+    }
 
     limpiarDom(){
         this.contenedor_carrito.innerHTML = ""
@@ -179,7 +179,7 @@ class ControladorCarrito {
             this.mostrarEnDom();
         });
     }
-
+    //DESDE ACA MANEJO EL DOM CARRITO
     mostrarEnDom() {
         this.limpiarDom()
         this.listaCarrito.forEach(producto => {
