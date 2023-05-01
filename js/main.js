@@ -83,6 +83,11 @@ class ControladorCarrito {
         this.listaCarrito.splice(indice,1)
     }
 
+    guardarEnLocalStorage(){
+        let arrEnFormatoJSON = JSON.stringify(this.listaCarrito)
+        localStorage.setItem("listaCarrito", arrEnFormatoJSON)
+    }
+
     levantarCarrito() {
         let obtenerListaJSON = localStorage.getItem("listaCarrito")
 
@@ -103,8 +108,7 @@ class ControladorCarrito {
             this.listaCarrito.push(producto)
         }
 
-        let arrEnFormatoJSON = JSON.stringify(this.listaCarrito)
-        localStorage.setItem("listaCarrito", arrEnFormatoJSON)
+        this.guardarEnLocalStorage()
     }
 
     vaciarCarrito() {
@@ -121,7 +125,9 @@ class ControladorCarrito {
                 this.mostrarEnDom() 
             })
         })
+        this.guardarEnLocalStorage()
     }
+    
 
     restarUno(){
         const restarUno = document.querySelectorAll(".restar-uno")
@@ -134,29 +140,8 @@ class ControladorCarrito {
                 }
             })
         })
+        this.guardarEnLocalStorage()
     }
-
-
-/*                                          <div class= "d-flex">
-                                                <span>
-                                                    <button id="${producto.id}" class="restar-uno btn px-2">
-                                                    -
-                                                    </button>
-                                                </span>
-                                                <span id=contador>
-                                                    ${producto.cantidad}
-                                                </span>
-                                                <span>
-                                                    <button id="${producto.id}" class="sumar-uno btn px-2">
-                                                    +
-                                                    </button>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h5 class="mb-0">
-                                                ${producto.cantidad * producto.precio}
-                                                </h5>
-                                            </div>*/
 
     cardProductos(producto){
         return `
@@ -239,9 +224,6 @@ class ControladorCarrito {
 
         this.mostrarPreciosEnDom()
 
-        
-
-        
     }
     
     buscar(id){
